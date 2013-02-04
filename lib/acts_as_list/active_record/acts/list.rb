@@ -86,8 +86,10 @@ module ActiveRecord
             # only add to attr_accessible
             # if the class has some mass_assignment_protection
 
-            unless accessible_attributes.blank?
-              attr_accessible :#{configuration[:column]}
+            if respond_to?(:accessible_attributes)
+              unless accessible_attributes.blank?
+                attr_accessible :#{configuration[:column]}
+              end
             end
 
             before_destroy :reload_position
